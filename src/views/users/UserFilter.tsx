@@ -12,7 +12,7 @@ import {
 import React, { useEffect, useState } from 'react';
 import SearchIcon from '@mui/icons-material/Search';
 import AddIcon from '@mui/icons-material/Add';
-import UserCreateDialog from './CreateUserDialog';
+import UserCreateDialog from './UserCreateDialog';
 import { User, UserGetParams } from '@/types/users.type';
 
 type Props = {
