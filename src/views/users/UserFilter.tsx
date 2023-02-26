@@ -1,3 +1,4 @@
+import { useTranslation } from 'next-i18next';
 import {
   FormControl,
   IconButton,
@@ -14,7 +15,6 @@ import SearchIcon from '@mui/icons-material/Search';
 import AddIcon from '@mui/icons-material/Add';
 import UserCreateDialog from './UserCreateDialog';
 import { User, UserGetParams } from '@/types/users.type';
-
 type Props = {
   filter: UserGetParams;
   onChange: (newFilter: UserGetParams) => void;
@@ -22,6 +22,7 @@ type Props = {
 };
 
 function UserFilter({ filter, onChange, onCreatedUser }: Props) {
+  const { t } = useTranslation();
   const [per_page, setLimit] = useState('10');
   const [keyword, setKeyword] = useState('');
   const [openCreate, setOpenCreate] = useState(false);
@@ -58,7 +59,7 @@ function UserFilter({ filter, onChange, onCreatedUser }: Props) {
       <Typography
         sx={{ flexGrow: 1, display: 'flex', alignItems: 'center' }}
         variant="h5">
-        All Users
+        {t('All Users')}
         <IconButton
           sx={{ marginLeft: 2 }}
           color="primary"

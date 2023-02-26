@@ -8,6 +8,7 @@ import { NextPage } from 'next';
 
 import createEmotionCache from 'src/utility/createEmotionCache';
 import lightThemeOptions from 'src/styles/theme/light-theme-option';
+import { appWithTranslation } from 'next-i18next';
 
 // Client-side cache, shared for the whole session of the user in the browser.
 const clientSideEmotionCache = createEmotionCache();
@@ -35,4 +36,4 @@ function App({
   );
 }
 
-export default App;
+export default appWithTranslation(App);
