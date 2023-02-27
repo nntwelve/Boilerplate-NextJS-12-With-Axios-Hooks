@@ -5,6 +5,7 @@ import { CacheProvider, EmotionCache } from '@emotion/react';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { CssBaseline } from '@mui/material';
 import { NextPage } from 'next';
+import { SessionProvider } from 'next-auth/react';
 
 import createEmotionCache from 'src/utility/createEmotionCache';
 import lightThemeOptions from 'src/styles/theme/light-theme-option';
@@ -23,14 +24,16 @@ const lightTheme = createTheme(lightThemeOptions);
 function App({
   Component,
   emotionCache = clientSideEmotionCache,
-  pageProps,
+  pageProps: { session, ...pageProps },
 }: ExtendedAppProps) {
   return (
     <CacheProvider value={emotionCache}>
       <ThemeProvider theme={lightTheme}>
         {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
         <CssBaseline />
-        <Component {...pageProps} />
+        <SessionProvider session={session}>
+          <Component {...pageProps} />
+        </SessionProvider>
       </ThemeProvider>
     </CacheProvider>
   );
