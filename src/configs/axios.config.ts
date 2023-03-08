@@ -2,6 +2,7 @@ import Axios from 'axios';
 import { configure } from 'axios-hooks';
 import LRU from 'lru-cache';
 import { AppConfig } from 'src/configs/app.config';
+import { getSession } from 'next-auth/react';
 
 const axios = Axios.create({
   baseURL: AppConfig.apiBase,
@@ -13,13 +14,9 @@ const cache = new LRU({ max: 10 });
 axios.interceptors.request.use(
   async (config) => {
     // Implement function to get token
-    const token = {
-      accessToken: 'my-access-token',
-      refreshToken: 'my-refresh-token',
-    };
-
-    if (token?.accessToken) {
-      config.headers.Authorization = `Bearer ${token?.accessToken}`;
+    const session = await getSession();
+    if (session?.access_token) {
+      config.headers.Authorization = `Bearer ${session?.access_token}`;
     }
     return config;
   },
