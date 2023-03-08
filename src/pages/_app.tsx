@@ -10,6 +10,9 @@ import { SessionProvider } from 'next-auth/react';
 import createEmotionCache from 'src/utility/createEmotionCache';
 import lightThemeOptions from 'src/styles/theme/light-theme-option';
 import { appWithTranslation } from 'next-i18next';
+import AppLayout from 'src/views/shared/AppLayout';
+import { useState } from 'react';
+import RefreshTokenHandler from '@/views/shared/RefreshTokenHandler';
 
 // Client-side cache, shared for the whole session of the user in the browser.
 const clientSideEmotionCache = createEmotionCache();
@@ -26,13 +29,18 @@ function App({
   emotionCache = clientSideEmotionCache,
   pageProps: { session, ...pageProps },
 }: ExtendedAppProps) {
+  const [interval, setInterval] = useState(0);
+
   return (
     <CacheProvider value={emotionCache}>
       <ThemeProvider theme={lightTheme}>
         {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
         <CssBaseline />
-        <SessionProvider session={session}>
-          <Component {...pageProps} />
+        <SessionProvider session={session} refetchInterval={interval}>
+          <AppLayout>
+            <Component {...pageProps} />
+          </AppLayout>
+          <RefreshTokenHandler setInterval={setInterval} />
         </SessionProvider>
       </ThemeProvider>
     </CacheProvider>

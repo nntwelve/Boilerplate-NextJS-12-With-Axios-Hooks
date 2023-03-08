@@ -12,11 +12,9 @@ function UserPage() {
   const { t } = useTranslation();
   const [filter, setFilter] = useState<UserGetParams>({});
   const [justCreatedUser, setJustCreatedUser] = useState<User[]>([]);
-
   const handleChangeFilter = useCallback((newFilter: UserGetParams) => {
     setFilter(newFilter);
   }, []);
-
   const handleCreatedUser = useCallback((data: User) => {
     setJustCreatedUser((prev) => [data, ...prev]);
   }, []);
