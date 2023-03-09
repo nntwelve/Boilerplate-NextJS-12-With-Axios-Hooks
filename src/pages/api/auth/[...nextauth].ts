@@ -71,7 +71,7 @@ const providers: Provider[] = [
         } else {
           // FIXME: UPDATE YOUR LOCAL API HERE
           res = await axios.post(`http://localhost:3336/auth/sign-in`, {
-            email: credentials?.username,
+            username: credentials?.username,
             password: credentials?.password,
           });
         }
